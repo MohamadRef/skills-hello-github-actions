@@ -1,19 +1,10 @@
-name: Post new comments
+name: Post welcome comment
 on:
-  issues:
+  pull_request:
     types: [opened]
+permissions:
+  pull-requests: write
 jobs:
-  comment:
+  build:
+    name: Post welcome comment
     runs-on: ubuntu-latest
-    steps:
-      - name: Add a comment
-        uses: actions/github-script@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.issues.createComment({
-              issue_number: context.payload.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "Hello World!"
-            })
